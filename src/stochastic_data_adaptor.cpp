@@ -19,9 +19,11 @@
 // Author: Alex Kantchelian, 2014
 // akant@cs.berkeley.edu
 
+#include <string.h>
 #include <utility>
 #include <algorithm>
 #include <fstream>
+#include <stdexcept>
 
 #include "stochastic_data_adaptor.h"
 
@@ -43,10 +45,9 @@ StochasticDataAdaptor::StochasticDataAdaptor(const char* fname, size_t n_instanc
         const char* cline = line.c_str();
         
         int label = atoi(cline);
-        int k = 0;
-        
-        while (cline[k] == ' ' || cline[k] == '\t') {
-            k++;
+        cline = strchr(cline, ' ');
+        if (!cline) {
+            throw std::runtime_error("Invalid format: expected ' '");
         }
         
         size_t cid;
@@ -59,7 +60,7 @@ StochasticDataAdaptor::StochasticDataAdaptor(const char* fname, size_t n_instanc
             it->second++;
         }
         
-        SparseVector sv(cline + k);
+        SparseVector sv(cline);
         
         instances.emplace_back(label, sv, cid);
         dimensions = std::max(sv.getMaxDimension(), dimensions);

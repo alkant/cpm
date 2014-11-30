@@ -40,11 +40,18 @@ SparseVector::SparseVector(const char* lsf_string, int non_zeros) {
           && (curr[0] != '#') && (curr[0] != '\n') && (curr[0] != '\r')){
         
         if (curr[0] == ' ') {
+            curr += 1;
             continue;
         }
         
         int index = atoi(curr);
-        curr = strchr(curr, ':') + 1;
+        curr = strchr(curr, ':');
+        if (curr) {
+            curr += 1;
+        } else {
+            throw std::runtime_error("Invalid format: expected ':'");
+        }
+
         float value = (float) atof(curr);
         
         if (index <= last_index) {
