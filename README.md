@@ -1,4 +1,7 @@
-This is a C++11 implementation of the Convex Polytope Machine algorithm. 
+This is a C++11 implementation of the Convex Polytope Machine algorithm as presented in
+
+Kantchelian, A., Tschantz, M. C., Huang, L., Bartlett, P. L., Joseph, A. D., & Tygar, J. D. [Large-Margin Convex Polytope Machine](http://papers.nips.cc/paper/5511-large-margin-convex-polytope-machine).
+ 
 In addition to the command line tool, Python bindings which are fully aware
 of numpy arrays and scipy sparse matrices are provided.
 
